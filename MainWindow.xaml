@@ -1,0 +1,143 @@
+﻿<Window x:Class="RecipeAppFinal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeAppFinal"
+        mc:Ignorable="d"
+            Title="MainWindow" Height="700" Width="800" Loaded="Window_Loaded">
+    <Grid Background="#E9C46A" RenderTransformOrigin="0.963,0.924">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Rectangle Grid.Row="0" Fill="DarkBlue"/>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Times New Roman" FontWeight="Bold" Grid.Row="0" Foreground="White">RECIPE BOOK APP</TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Column="0" Fill="DarkBlue"/>
+            <Rectangle Grid.Column="2" Fill="DarkBlue"/>
+
+            <!-- List Box -->
+            <ListBox x:Name="DisplayDetails" FontSize="13" Grid.Column="1" Grid.Row="1" Margin="10" BorderBrush="#FF00238E">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding RecipeName}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Description}" FontStyle="Italic" Margin="0,5,0,0" />
+                            <TextBlock Text="Ingredients:" FontWeight="Bold" Margin="0,5,0,0" />
+                            <ItemsControl ItemsSource="{Binding Ingredients}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <TextBlock Text="Instructions:" FontWeight="Bold" Margin="0,5,0,0" />
+                            <ItemsControl ItemsSource="{Binding Instructions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- ListView to display recipe steps -->
+            <ListView Name="lstRecipeSteps" Margin="10" Grid.Column="1" Grid.Row="8">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Step}" Margin="5" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Add Recipe Button -->
+                <Button Click="btnAddRecipe_Click" x:Name="btnAddRecipe" Background="LightBlue" Content="Add Recipe" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="0"></Button>
+
+                <!-- Add Recipe Label -->
+                <Label Grid.Row="0" Grid.Column="0" Content="Click Here to add another recipe ==&gt;" Name="anotherRecipeLable" FontSize="10" HorizontalAlignment="Left" Margin="42,45,0,0" VerticalAlignment="Top" Height="27" Width="204" Foreground="Blue" Visibility="Collapsed"/>
+
+                <!-- Display All Recipes Button -->
+                <Button  Click="btnDisplayRecipe_Click" Background="LightBlue" Content="Display All Recipe" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="1"></Button>
+
+                <!-- Add to Menu Button -->
+                <Button x:Name="btnaddMenu" Click="btnaddMenu_Click" Background="LightBlue"  Content="Click to Add Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="5"></Button>
+
+                <!-- Clear Recipes Button -->
+                <Button x:Name="btnClearRecipe" Background="LightBlue" Content="Clear all recipes" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="6" ></Button>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Display Specific Recipe Button -->
+                    <Button x:Name="btnDisplaySpecificRecipe" Background="LightBlue" Content="Display Specific Recipe" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="1"></Button>
+
+                    <ComboBox x:Name="txtSpecificRecipe" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Width="150" Height="20" IsEditable="True"/>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Scale Recipe Button -->
+                    <Button x:Name="btnScaleRecipe" Background="LightBlue" Content="Scale a recipe" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="3"></Button>
+
+                    <ComboBox IsEditable="True" x:Name="txtSpecificRecipeToScale" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Width="150" Height="20"/>
+
+                    <!-- Scale Recipe Label -->
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" Foreground="White">Scale Recipe By a Factor of:</TextBlock>
+
+                    <!-- Radio Buttons for Scaling -->
+                    <RadioButton x:Name="scaleByHalf" Foreground="White" Margin="52,0,0,0" Content="0.5" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <RadioButton x:Name="scaleByTwo" Foreground="White" Content="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <RadioButton x:Name="scaleByThree" Foreground="White" Margin="0,0,50,0" Content="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Reset Recipe Button -->
+                    <Button x:Name="btnResetRecipe" Background="LightBlue" Content="Reset a recipe" Click="btnResetRecipe_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="40" Grid.Row="0"></Button>
+
+                    <ComboBox IsEditable="True" x:Name="txtResetRecipe" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Width="150" Height="20" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Rectangle Grid.Row="2" Fill="DarkBlue"/>
+    </Grid>
+</Window>
